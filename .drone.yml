@@ -26,10 +26,10 @@ steps:
         from_secret: rsync_key
     settings:
       hosts:
-        - 47.94.147.222
+        - 106.12.49.47
       source: .vuepress/dist/*
-      target: /root/doc
-      secrets: [ rsync_key ]
+      target: /home/doc
+      secrets: [rsync_key]
     when:
       target:
         - production
@@ -43,10 +43,10 @@ steps:
         from_secret: rsync_key
     settings:
       hosts:
-        - 47.94.147.222
+        - 106.12.49.47
       source: .vuepress/dist/*
-      target: /root/doc
-      secrets: [ rsync_key ]
+      target: /home/doc
+      secrets: [rsync_key]
     when:
       target:
         - staging
