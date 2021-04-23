@@ -1,0 +1,64 @@
+---
+kind: pipeline
+type: docker
+name: web
+
+steps:
+  - name: npm install
+    image: node:alpine
+    commands:
+      - npm i --registry=https://registry.npm.taobao.org
+
+  - name: test
+    image: node:alpine
+    commands:
+      - npm run test
+
+  - name: build
+    image: node:alpine
+    commands:
+      - npm run build
+
+  - name: rsync production
+    image: drillster/drone-rsync
+    environment:
+      RSYNC_KEY:
+        from_secret: rsync_key
+    settings:
+      hosts:
+        - 47.94.147.222
+      source: .vuepress/dist/*
+      target: /root/doc
+      secrets: [ rsync_key ]
+    when:
+      target:
+        - production
+      event:
+        - promote
+
+  - name: rsync staging
+    image: drillster/drone-rsync
+    environment:
+      RSYNC_KEY:
+        from_secret: rsync_key
+    settings:
+      hosts:
+        - 47.94.147.222
+      source: .vuepress/dist/*
+      target: /root/doc
+      secrets: [ rsync_key ]
+    when:
+      target:
+        - staging
+      event:
+        - promote
+
+  - name: notify
+    image: curlimages/curl
+    commands:
+      - |
+        curl 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=dbb3fa53-29f8-4394-bfa1-ecce009e8cbb' -H 'Content-Type: application/json' -d '{"msgtype": "text", "text": {"content": "ok"}}'
+    when:
+      status:
+        - failure
+        - success

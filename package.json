@@ -1,0 +1,22 @@
+{
+  "name": "doc",
+  "version": "1.0.0",
+  "description": "前端CICD实战",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vuepress dev .",
+    "test": "echo test",
+    "build": "vuepress build ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "ora": "^5.4.0",
+    "rsync": "^0.6.1",
+    "shelljs": "^0.8.4",
+    "vuepress": "^1.8.2",
+    "yargs": "^16.2.0"
+  }
+}
