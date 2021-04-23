@@ -4,15 +4,10 @@ type: docker
 name: web
 
 steps:
-  - name: npm set origin
-    image: node:alpine
-    commands:
-      - npm config set registry https://registry.npm.taobao.org
-
   - name: npm install
     image: node:alpine
     commands:
-      - npm i
+      - npm --registry=https://registry.npm.taobao.org i
 
   - name: test
     image: node:alpine
@@ -38,23 +33,6 @@ steps:
     when:
       target:
         - production
-      event:
-        - promote
-
-  - name: rsync staging
-    image: drillster/drone-rsync
-    environment:
-      RSYNC_KEY:
-        from_secret: rsync_key
-    settings:
-      hosts:
-        - 106.12.49.47
-      source: .vuepress/dist/*
-      target: /home/doc
-      secrets: [rsync_key]
-    when:
-      target:
-        - staging
       event:
         - promote
 
