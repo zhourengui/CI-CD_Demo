@@ -18,7 +18,6 @@ steps:
     image: node:alpine
     commands:
       - npm run build
-
   - name: rsync production
     image: drillster/drone-rsync
     environment:
