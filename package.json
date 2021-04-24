@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "前端CICD实战",
   "main": "index.js",
+  "bin": {
+    "ali": "./bin/deploy.js"
+  },
   "scripts": {
     "dev": "vuepress dev .",
     "test": "echo test",
