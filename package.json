@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chokidar": "^3.5.1",
     "colors": "^1.4.0",
     "ora": "^5.4.0",
     "rsync": "^0.6.1",
